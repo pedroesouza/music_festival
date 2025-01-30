@@ -71,4 +71,4 @@ def venue_managementMAIN(stages):
 
 
 venue_managementMAIN(stages)
-#here after used it will go to ticket sales and admission
+#here after used it will back to main function
