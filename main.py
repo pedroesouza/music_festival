@@ -54,7 +54,7 @@ o     o                              o     o                                    
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ooP'.:::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::...:::::::::::::::::::::::::::::::::::''')
     while True:
-        choice = input("Would you like to manage stages or equipment or leave: ").lower()
+        choice = input("\nWould you like to manage stages or equipment or leave: ").lower()
         if choice == "stages":
             location = input("\nWould you like to add, remove, or view stages: ").lower()
             if location == "add":
