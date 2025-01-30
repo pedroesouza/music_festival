@@ -14,6 +14,7 @@
 
 #Tate Morgan venue management stuff
 
+
 stages = set({})
 equipment = set({})
 #This is my function to add a location
@@ -81,4 +82,4 @@ o     o                              o     o                                    
 
 
 venue_managementMAIN(stages)
-#here after used it will back to main function
+#here after used it will go to ticket sales and admission
