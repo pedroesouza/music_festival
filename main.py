@@ -8,6 +8,43 @@ attendees = 0
 
 attendee_tickets = {}
 
+
+def ticket_management():
+    print("""
+    1.Add an Attendee
+    2.Remove an Attendee
+    3.Change an Attendee's Ticket
+    4.Search For an Attendee's Ticket
+    """)
+
+    ticket_manage_choice = input("Choose a Number: ")
+
+    if ticket_manage_choice == "1":
+        attendee_add()
+        print(attendee_names)
+    elif ticket_manage_choice == "2":
+        remove_ticket()
+        print(attendee_names)
+    elif ticket_manage_choice == "3":
+        change_ticket()
+    elif ticket_manage_choice == "4":
+        attendee_search()
+    else:
+        print("Not a Choice")
+
+def attendee_search():
+    print(attendees)
+    search = input("Choose an attendee to find their ticket: ")
+
+    if search in attendee_tickets:
+        print("This is", search, "ticket: ", attendee_tickets[search])
+    else:
+        print("Not an Attendee")
+
+
+
+
+
 def attendee_add():
     attendee_name = input("Attendee Name: ").lower()
     attendee_names.append(attendee_name)
@@ -82,23 +119,46 @@ def change_ticket():
 
         if ticket_change == "1":
             
+            if attendee_tickets[attendee_change] == "3 Day Ticket":
+                day_tickets -=1
+            elif attendee_tickets[attendee_change] == "VIP Ticket":
+                vip_tickets -=1
+            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
+                super_vip_tickets -=1
             
             del attendee_tickets[attendee_change]
             attendee_tickets.update({attendee_change: "3 Day Ticket"})
             day_tickets +=1
         elif ticket_change == "2":
+            
+            if attendee_tickets[attendee_change] == "3 Day Ticket":
+                day_tickets -=1
+            elif attendee_tickets[attendee_change] == "VIP Ticket":
+                vip_tickets -=1
+            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
+                super_vip_tickets -=1
+            
             del attendee_tickets[attendee_change]
-            vip_tickets -=1
             attendee_tickets.update({attendee_change: "VIP Ticket"})
             vip_tickets +=1
         elif ticket_change == "3":
+            
+            if attendee_tickets[attendee_change] == "3 Day Ticket":
+                day_tickets -=1
+            elif attendee_tickets[attendee_change] == "VIP Ticket":
+                vip_tickets -=1
+            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
+                super_vip_tickets -=1
+            
+            
             del attendee_tickets[attendee_change]
             attendee_tickets.update({attendee_change: "Super VIP Ticket"})
             super_vip_tickets +=1
         else:
-            pass
-
+            print("Not a Ticket Type")
+    else:
+        print("Not an Attendee")
 
 
 while True:
-    attendee_add()
+    ticket_management()
