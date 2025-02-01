@@ -58,7 +58,7 @@ def attendee_add():
     3. Super VIP Ticket      
     """)
  
-    ticket_type = input("Choose A Ticket: ")
+    ticket_type = input("Choose A Number: ")
          
     
     if ticket_type == "1":
@@ -111,7 +111,7 @@ def remove_ticket():
 #This function searches for an attendees ticket
 def attendee_search():
     print("Attendees:",attendee_names)
-    search = input("Choose an attendee to find their ticket: ")
+    search = input("Choose an attendee to find their ticket: ").lower()
 
     if search in attendee_tickets:
         print("This is", search, "ticket: ", attendee_tickets[search])
