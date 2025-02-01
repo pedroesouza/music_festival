@@ -7,8 +7,11 @@ super_vip_tickets = 0
 attendee_names = []
 attendees = 0
 
+#Dictionary variables for artist dictionary and tickets for attendees
 attendee_tickets = {}
 artistDict = {}
+
+#Print big title
 
 print(r''' █████╗ ██████╗ ████████╗██╗███████╗████████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗███╗   ███╗███████╗███╗   ██╗████████╗
 ██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝╚══██╔══╝    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝████╗ ████║██╔════╝████╗  ██║╚══██╔══╝
