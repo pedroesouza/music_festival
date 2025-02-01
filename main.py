@@ -1,11 +1,14 @@
 #Asher Wangia, Ticket Sales and Attendee Management
 
+#Ticket count variables
 tickets = 0
 day_tickets = 0
 vip_tickets = 0
 super_vip_tickets = 0
-attendee_names = []
-attendees = 0
+
+#Atendee variables
+attendee_names = [] #Name list
+attendees = 0 #Count
 
 #Dictionary variables for artist dictionary and tickets for attendees
 attendee_tickets = {}
@@ -20,19 +23,24 @@ print(r''' █████╗ ██████╗ ████████╗�
 ██║  ██║██║  ██║   ██║   ██║███████║   ██║       ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║ ╚═╝ ██║███████╗██║ ╚████║   ██║   
 ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   
                                                                                                                                              ''')
-
+#Artist add function, this is simple, it just adds all the info from the function call into artistDict
 def add_artist(artistName, artistGenre, performaceDuration):
     artistDict[artistName] = [artistName, artistGenre, performaceDuration]
 
+#Artist remove function, gets rid of an artist if they are in the dictionary, if they are not, it doesn't matter
 def remove_artist(artistName):
     if artistName in artistDict:
         del artistDict[artistName]
     
     print("Your artist was removed from the artist list, if there was no artist of that name, we have not changed the list at all")
 
+#Artist edit function
 def edit_artist(artistName, whatToEdit, change):
+
+    #This whole part just edits based on what is chosen
     if artistName in artistDict:
         if whatToEdit == "name":
+            #name is special as it changes the first part of the list value, and also the key after (by popping the original)
             artistDict[artistName][0] = change
             artistDict[change] = artistDict.pop(artistName)
         
@@ -41,30 +49,37 @@ def edit_artist(artistName, whatToEdit, change):
 
         elif whatToEdit == "duration":
             artistDict[artistName][2] = change
-
+          
+        #Error handling for invalid choices, just letting the user know that nothing happened and going back to the OG artist management function
         else:
             print("ERROR, your choice of what to edit is invalid!, please reselect your choices and try again!, remember, in this question, your only aoptions are name, genre, and duration.")
+
+    #Error handling for invalid choices, just letting the user know that nothing happened and going back to the OG artist management function
     else:
         print("ERROR, artist in not in the list of artist!, please reselect your choices and try again!")
 
+# The artist search function is pretty simple, looks for the name in the dictionary, and if finds it prints the info, if it doesn't it lets you know
 def search_artist(artistName):
     if artistName in artistDict:
         print(f"Your artist is in the dictionary, their information is name:{artistDict[artistName][0]}, genre:{artistDict[artistName][1]}, duration:{artistDict[artistName][2]}")
     else:
         print("Your artist is not yet in the list.")
 
+#Main artist management function
 def artist_management():
     while True:
+        #Fancy artist management title
         print(r'''   ___             _        _              _              __  __                            __ _                                    _     
   /   \     _ _   | |_     (_)     ___    | |_      o O O|  \/  |  __ _    _ _     __ _    / _` |   ___    _ __     ___    _ _     | |_   
   | - |    | '_|  |  _|    | |    (_-<    |  _|    o     | |\/| | / _` |  | ' \   / _` |   \__, |  / -_)  | '  \   / -_)  | ' \    |  _|  
   |_|_|   _|_|_   _\__|   _|_|_   /__/_   _\__|   TS__[O]|_|__|_| \__,_|  |_||_|  \__,_|   |___/   \___|  |_|_|_|  \___|  |_||_|   _\__|  
 _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
 "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' ''')
-    
+
+        #Displays artist list
         print(f"\nYour artist list is: {artistDict}")
 
-
+        #Handling what the user wants to do with artists and prints right function and parameters
         artistListInteraction = input("\nWould you like to add, edit, remove artist and info, search, or leave artist management? ").lower()
         if artistListInteraction == "add":
             add_artist(input("What is the artists name? "), input("What is the artists genre? "), input("What is the duration of the performance? "))
@@ -76,6 +91,8 @@ _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""
             search_artist(input("What is your artist's name? "))
         elif artistListInteraction == "leave":
             break
+
+        #Error handling for invalid choices, just letting the user know that nothing happened and going back to the OG artist management function
         else: 
             print("ERROR, your answer was not in the options, please only answer with add, remove, edit, search, or leave")
 
