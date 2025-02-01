@@ -1,4 +1,4 @@
-
+#Asher Wangia, Ticket Sales and Attendee Management
 
 tickets = 0
 day_tickets = 0
@@ -9,13 +9,13 @@ attendees = 0
 
 attendee_tickets = {}
 
-
+#This Function asks for how the user would like to manage attendees and tickets
 def ticket_management():
     ftickets_add = []
-    ftickets_remove = []
+    
 
 
-    print("Attendees: ",attendees)
+    print("Attendees Amount: ",attendees)
     print("Total Tickets: ",tickets)
     print("3 Day Tickets: ",day_tickets)
     print("VIP Tickets: ",vip_tickets)
@@ -24,8 +24,7 @@ def ticket_management():
     print("""
     1.Add an Attendee
     2.Remove an Attendee
-    3.Change an Attendee's Ticket
-    4.Search For an Attendee's Ticket
+    3.Search For an Attendee's Ticket
     """)
 
     ticket_manage_choice = input("Choose a Number: ")
@@ -37,32 +36,18 @@ def ticket_management():
         ftickets_add = remove_ticket()
         print(attendee_names)
     elif ticket_manage_choice == "3":
-        change_ticket()
-    elif ticket_manage_choice == "4":
         attendee_search()
     else:
         print("Not a Choice")
 
     return ftickets_add
 
-def attendee_search():
-    print(attendees)
-    search = input("Choose an attendee to find their ticket: ")
 
-    if search in attendee_tickets:
-        print("This is", search, "ticket: ", attendee_tickets[search])
-    else:
-        print("Not an Attendee")
-
-    
-
-
-
-
+#This function adds an attendee to the festival and gives them a ticket
 def attendee_add():
     attendee_name = input("Attendee Name: ").lower()
     attendee_names.append(attendee_name)
-    print(attendee_names)
+    print("Attendees:",attendee_names)
     
     fday_tickets = fvip_tickets = fsuper_tickets = fattendee = 0
 
@@ -82,31 +67,29 @@ def attendee_add():
         attendee_tickets.update({attendee_name: "3 Day Ticket"})
     elif ticket_type == "2":
         fvip_tickets += 1
+        fattendee +=1
         attendee_tickets.update({attendee_name: "VIP Tickets"})
     elif ticket_type == "3":
         fsuper_tickets +=1
+        fattendee +=1
         attendee_tickets.update({attendee_name: "Super VIP Tickets"})
     else:
         print("Wrong Type")
 
+
     return fday_tickets, fvip_tickets, fsuper_tickets, fattendee
-    
-    
-    
-    
+       
 
-
-
+#This function removes an attendee from the festival
 def remove_ticket():
     
     fday_tickets = fvip_tickets = fsuper_tickets = fattendee = 0
 
     
-    print(attendee_names)
+    print("Attendees:",attendee_names)
     attendee_remove = input("Whose ticket do you want to remove: ").lower()
 
     if attendee_remove in attendee_names:
-        del attendee_tickets[attendee_remove]
         fattendee -=1
         attendee_names.remove(attendee_remove)
 
@@ -116,73 +99,27 @@ def remove_ticket():
             fvip_tickets -=1
         elif attendee_tickets[attendee_remove] == "Super VIP Tickets":
             fsuper_tickets -=1
+
+        del attendee_tickets[attendee_remove]
+        
     else:
         print("Not an Attendee")
 
     return fday_tickets, fvip_tickets, fsuper_tickets, fattendee
 
 
+#This function searches for an attendees ticket
+def attendee_search():
+    print("Attendees:",attendee_names)
+    search = input("Choose an attendee to find their ticket: ")
 
-
-def change_ticket():
-    print(attendee_names)
-    attendee_change = input("Whose ticket do you want to change: ")
-
-    if attendee_change in attendee_names:
-        print("""
-        Choose a Type of Ticket
-        1. 3 Day Ticket
-        2. VIP Ticket
-        3. Super VIP Ticket
-        """)
-
-
-
-        ticket_change = input("Choose a Ticket")
-
-        if ticket_change == "1":
-            
-            if attendee_tickets[attendee_change] == "3 Day Ticket":
-                day_tickets -=1
-            elif attendee_tickets[attendee_change] == "VIP Ticket":
-                vip_tickets -=1
-            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
-                super_vip_tickets -=1
-            
-            del attendee_tickets[attendee_change]
-            attendee_tickets.update({attendee_change: "3 Day Ticket"})
-            day_tickets +=1
-        elif ticket_change == "2":
-            
-            if attendee_tickets[attendee_change] == "3 Day Ticket":
-                day_tickets -=1
-            elif attendee_tickets[attendee_change] == "VIP Ticket":
-                vip_tickets -=1
-            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
-                super_vip_tickets -=1
-            
-            del attendee_tickets[attendee_change]
-            attendee_tickets.update({attendee_change: "VIP Ticket"})
-            vip_tickets +=1
-        elif ticket_change == "3":
-            
-            if attendee_tickets[attendee_change] == "3 Day Ticket":
-                day_tickets -=1
-            elif attendee_tickets[attendee_change] == "VIP Ticket":
-                vip_tickets -=1
-            elif attendee_tickets[attendee_change] == "Super VIP Tickets":
-                super_vip_tickets -=1
-            
-            
-            del attendee_tickets[attendee_change]
-            attendee_tickets.update({attendee_change: "Super VIP Ticket"})
-            super_vip_tickets +=1
-        else:
-            print("Not a Ticket Type")
+    if search in attendee_tickets:
+        print("This is", search, "ticket: ", attendee_tickets[search])
     else:
         print("Not an Attendee")
 
 
+#This part adds the tickets and amount of attendees while running the ticket management function
 while True:
     tickets_add = ticket_management()
     try:
