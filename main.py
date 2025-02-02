@@ -1,13 +1,11 @@
-#Asher Wangia, Ticket Sales and Attendee Management
-
-tickets = 0
-day_tickets = 0
-vip_tickets = 0
-super_vip_tickets = 0
-attendee_names = []
+#Variables for all members (jsut for the sake of organizement)
+dayTickets= 0
+vipTickets = 0
+superVipTickets = 0
+attendeeNames = []
 attendees = 0
 
-attendee_tickets = {}
+attendeeTickets = {}
 artistDict = {}
 
 #Tate Morgan venue management stuff
@@ -55,13 +53,13 @@ o     o                              o     o                                    
         else:
             print("\nSorry that is not a viable option, please check you spelling and try again")
 
-print(r''' █████╗ ██████╗ ████████╗██╗███████╗████████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗███╗   ███╗███████╗███╗   ██╗████████╗
-██╔══██╗██╔══██╗╚══██╔══╝██║██╔════╝╚══██╔══╝    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝████╗ ████║██╔════╝████╗  ██║╚══██╔══╝
-███████║██████╔╝   ██║   ██║███████╗   ██║       ██╔████╔██║███████║██╔██╗ ██║███████║██║  ███╗█████╗  ██╔████╔██║█████╗  ██╔██╗ ██║   ██║   
-██╔══██║██╔══██╗   ██║   ██║╚════██║   ██║       ██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║   
-██║  ██║██║  ██║   ██║   ██║███████║   ██║       ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║ ╚═╝ ██║███████╗██║ ╚████║   ██║   
-╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   
-                                                                                                                                             ''')
+print(r'''███╗   ███╗██╗   ██╗███████╗██╗ ██████╗    ███████╗███████╗███████╗████████╗██╗██╗   ██╗ █████╗ ██╗     
+████╗ ████║██║   ██║██╔════╝██║██╔════╝    ██╔════╝██╔════╝██╔════╝╚══██╔══╝██║██║   ██║██╔══██╗██║     
+██╔████╔██║██║   ██║███████╗██║██║         █████╗  █████╗  ███████╗   ██║   ██║██║   ██║███████║██║     
+██║╚██╔╝██║██║   ██║╚════██║██║██║         ██╔══╝  ██╔══╝  ╚════██║   ██║   ██║╚██╗ ██╔╝██╔══██║██║     
+██║ ╚═╝ ██║╚██████╔╝███████║██║╚██████╗    ██║     ███████╗███████║   ██║   ██║ ╚████╔╝ ██║  ██║███████╗
+╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝    ╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝
+                                                                                                        ''')
 
 def add_artist(artistName, artistGenre, performaceDuration):
     artistDict[artistName] = [artistName, artistGenre, performaceDuration]
@@ -121,6 +119,12 @@ _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""
         else: 
             print("ERROR, your answer was not in the options, please only answer with add, remove, edit, search, or leave")
 
+global tickets
+tickets = 0
+
+
+#Asher Wangia, Ticket Sales and Attendee Management
+
 #This Function asks for how the user would like to manage attendees and tickets
 def ticket_management():
     ftickets_add = []
@@ -129,9 +133,9 @@ def ticket_management():
 
     print("Attendees Amount: ",attendees)
     print("Total Tickets: ",tickets)
-    print("3 Day Tickets: ",day_tickets)
-    print("VIP Tickets: ",vip_tickets)
-    print("Super VIP Tickets",super_vip_tickets)
+    print("3 Day Tickets: ",dayTickets)
+    print("VIP Tickets: ",vipTickets)
+    print("Super VIP Tickets",superVipTickets)
 
     print("""
     1.Add an Attendee
@@ -139,15 +143,15 @@ def ticket_management():
     3.Search For an Attendee's Ticket
     """)
 
-    ticket_manage_choice = input("Choose a Number: ")
+    ticketManageChoice = input("Choose a Number: ")
 
-    if ticket_manage_choice == "1":
+    if ticketManageChoice == "1":
         ftickets_add = attendee_add()
-        print(attendee_names)
-    elif ticket_manage_choice == "2":
+        print(attendeeNames)
+    elif ticketManageChoice == "2":
         ftickets_add = remove_ticket()
-        print(attendee_names)
-    elif ticket_manage_choice == "3":
+        print(attendeeNames)
+    elif ticketManageChoice == "3":
         attendee_search()
     else:
         print("Not a Choice")
@@ -157,11 +161,11 @@ def ticket_management():
 
 #This function adds an attendee to the festival and gives them a ticket
 def attendee_add():
-    attendee_name = input("Attendee Name: ").lower()
-    attendee_names.append(attendee_name)
-    print("Attendees:",attendee_names)
+    attendeeName = input("Attendee Name: ").lower()
+    attendeeNames.append(attendeeName)
+    print("Attendees:",attendeeNames)
     
-    fday_tickets = fvip_tickets = fsuper_tickets = fattendee = 0
+    fDayTickets= fVipTickets = fsuper_tickets = fattendee = 0
 
     print("""
     Choose A Type
@@ -174,59 +178,59 @@ def attendee_add():
          
     
     if ticket_type == "1":
-        fday_tickets += 1
+        fDayTickets+= 1
         fattendee +=1
-        attendee_tickets.update({attendee_name: "3 Day Ticket"})
+        attendeeTickets.update({attendeeName: "3 Day Ticket"})
     elif ticket_type == "2":
-        fvip_tickets += 1
+        fVipTickets += 1
         fattendee +=1
-        attendee_tickets.update({attendee_name: "VIP Tickets"})
+        attendeeTickets.update({attendeeName: "VIP Tickets"})
     elif ticket_type == "3":
         fsuper_tickets +=1
         fattendee +=1
-        attendee_tickets.update({attendee_name: "Super VIP Tickets"})
+        attendeeTickets.update({attendeeName: "Super VIP Tickets"})
     else:
         print("Wrong Type")
 
 
-    return fday_tickets, fvip_tickets, fsuper_tickets, fattendee
+    return fDayTickets, fVipTickets, fsuper_tickets, fattendee
        
 
 #This function removes an attendee from the festival
 def remove_ticket():
     
-    fday_tickets = fvip_tickets = fsuper_tickets = fattendee = 0
+    fDayTickets= fVipTickets = fsuper_tickets = fattendee = 0
 
     
-    print("Attendees:",attendee_names)
-    attendee_remove = input("Whose ticket do you want to remove: ").lower()
+    print("Attendees:",attendeeNames)
+    attendeeRemove = input("Whose ticket do you want to remove: ").lower()
 
-    if attendee_remove in attendee_names:
+    if attendeeRemove in attendeeNames:
         fattendee -=1
-        attendee_names.remove(attendee_remove)
+        attendeeNames.remove(attendeeRemove)
 
-        if attendee_tickets[attendee_remove] == "3 Day Ticket":
-            fday_tickets -=1
-        elif attendee_tickets[attendee_remove] == "VIP Ticket":
-            fvip_tickets -=1
-        elif attendee_tickets[attendee_remove] == "Super VIP Tickets":
+        if attendeeTickets[attendeeRemove] == "3 Day Ticket":
+            fDayTickets-=1
+        elif attendeeTickets[attendeeRemove] == "VIP Ticket":
+            fVipTickets -=1
+        elif attendeeTickets[attendeeRemove] == "Super VIP Tickets":
             fsuper_tickets -=1
 
-        del attendee_tickets[attendee_remove]
+        del attendeeTickets[attendeeRemove]
         
     else:
         print("Not an Attendee")
 
-    return fday_tickets, fvip_tickets, fsuper_tickets, fattendee
+    return fDayTickets, fVipTickets, fsuper_tickets, fattendee
 
 
 #This function searches for an attendees ticket
 def attendee_search():
-    print("Attendees:",attendee_names)
+    print("Attendees:",attendeeNames)
     search = input("Choose an attendee to find their ticket: ").lower()
 
-    if search in attendee_tickets:
-        print("This is", search, "ticket: ", attendee_tickets[search])
+    if search in attendeeTickets:
+        print("This is", search, "ticket: ", attendeeTickets[search])
     else:
         print("Not an Attendee")
 
@@ -237,11 +241,11 @@ def main_ticket_management():
         tickets_add = ticket_management()
         try:
             
-            day_tickets += tickets_add[0]
-            vip_tickets += tickets_add[1]
-            super_vip_tickets += tickets_add[2]
+            dayTickets+= tickets_add[0]
+            vipTickets += tickets_add[1]
+            superVipTickets += tickets_add[2]
             attendees += tickets_add[3]
-            tickets = day_tickets + vip_tickets + super_vip_tickets
+            tickets = dayTickets+ vipTickets + superVipTickets
         except:
             pass
 
