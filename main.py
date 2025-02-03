@@ -290,31 +290,30 @@ def add_schedule_artists(artist, when, where):
 def remove_schedule_artists(artist):
     for i in artistList:
         if i[0] == artist:
-            i.pop([i[0], i[2], i[3]])
+            i.pop([i[0], i[1], i[2]])
     print("Congrats, your artist is now gone from the list!")
-
-def edit_schedule_artists(artist, thing, change):
-    pass
 
 def schedule_artists(choice):
     if choice == "remove":
         remove_schedule_artists()
     if choice == "add":
         add_schedule_artists()
-    if choice == "edit":
-        edit_schedule_artists(input("What artist do you want to edit?"), input())
 
 def schedule_management():
+    print("Artist list:")
+    for i in artistList: 
+        print("Name:", i[0], "When:", i[1], "Where", i[2], end=" ")
+    
     scheduleChoice = input("Would you like to (edit) what your time slots are?, assign (artists), or (leave)?").lower()
     if scheduleChoice == "edit":
         schedule_edit(input("Would you like to have a 1 day long or 3 day long schedule"))
     if scheduleChoice == "artists":
-        schedule_artists(input("Yould you like to edit, add, or edit artists? ").lower())
+        schedule_artists(input("Yould you like to edit, or add artists? ").lower())
     if scheduleChoice == "leave":
         main()
 
 def main():
-    whatToDo = input("Would you like to manage tickets, artists, venue or leave? ").lower()
+    whatToDo = input("Would you like to manage tickets, artists, venue, schedule or leave? ").lower()
 
     if whatToDo == "tickets":
         main_ticket_management()
@@ -327,7 +326,7 @@ def main():
     elif whatToDo == "leave":
         exit()
     else:
-        print("ERROR, please only answer with ticktets, artist, venue or leave")
+        print("ERROR, please only answer with ticktets, artist, venue, schedule or leave")
 
 while True:
     main()
