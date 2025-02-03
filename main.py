@@ -16,6 +16,7 @@ oneDayFestival = (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22
 threeDayFestival = ("day 1", (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), "day 2",(16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), "day 3", (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24))
 artistSchedules = []
 
+#Big main title
 print(r'''███╗   ███╗██╗   ██╗███████╗██╗ ██████╗    ███████╗███████╗███████╗████████╗██╗██╗   ██╗ █████╗ ██╗     
 ████╗ ████║██║   ██║██╔════╝██║██╔════╝    ██╔════╝██╔════╝██╔════╝╚══██╔══╝██║██║   ██║██╔══██╗██║     
 ██╔████╔██║██║   ██║███████╗██║██║         █████╗  █████╗  ███████╗   ██║   ██║██║   ██║███████║██║     
@@ -75,7 +76,7 @@ o     o                              o     o                                    
         else:
             print("\nSorry that is not a viable option, please only answer with add, remove, view or venue and try again")
 
-
+#Pedro artist management
 
 def add_artist(artistName, artistGenre, performaceDuration):
     artistDict[artistName] = [artistName, artistGenre, performaceDuration]
@@ -109,6 +110,7 @@ def search_artist(artistName):
     else:
         print("Your artist is not yet in the list.")
 
+#UI for artist management and asking what they want to do in artist management, function calls based off it
 def artist_management():
     while True:
         print(r'''   ___             _        _              _              __  __                            __ _                                    _     
