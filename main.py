@@ -8,8 +8,19 @@ attendees = 0
 attendeeTickets = {}
 artistDict = {}
 
-#Tate Morgan venue management stuff
+oneDayFestival = (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24)
+threeDayFestival = ((16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24))
+artistSchedules = []
 
+print(r'''███╗   ███╗██╗   ██╗███████╗██╗ ██████╗    ███████╗███████╗███████╗████████╗██╗██╗   ██╗ █████╗ ██╗     
+████╗ ████║██║   ██║██╔════╝██║██╔════╝    ██╔════╝██╔════╝██╔════╝╚══██╔══╝██║██║   ██║██╔══██╗██║     
+██╔████╔██║██║   ██║███████╗██║██║         █████╗  █████╗  ███████╗   ██║   ██║██║   ██║███████║██║     
+██║╚██╔╝██║██║   ██║╚════██║██║██║         ██╔══╝  ██╔══╝  ╚════██║   ██║   ██║╚██╗ ██╔╝██╔══██║██║     
+██║ ╚═╝ ██║╚██████╔╝███████║██║╚██████╗    ██║     ███████╗███████║   ██║   ██║ ╚████╔╝ ██║  ██║███████╗
+╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝    ╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝
+                                                                                                        ''')
+
+#Tate Morgan venue management stuff
 
 stages = set({})
 #This is my function to add a location
@@ -53,13 +64,7 @@ o     o                              o     o                                    
         else:
             print("\nSorry that is not a viable option, please check you spelling and try again")
 
-print(r'''███╗   ███╗██╗   ██╗███████╗██╗ ██████╗    ███████╗███████╗███████╗████████╗██╗██╗   ██╗ █████╗ ██╗     
-████╗ ████║██║   ██║██╔════╝██║██╔════╝    ██╔════╝██╔════╝██╔════╝╚══██╔══╝██║██║   ██║██╔══██╗██║     
-██╔████╔██║██║   ██║███████╗██║██║         █████╗  █████╗  ███████╗   ██║   ██║██║   ██║███████║██║     
-██║╚██╔╝██║██║   ██║╚════██║██║██║         ██╔══╝  ██╔══╝  ╚════██║   ██║   ██║╚██╗ ██╔╝██╔══██║██║     
-██║ ╚═╝ ██║╚██████╔╝███████║██║╚██████╗    ██║     ███████╗███████║   ██║   ██║ ╚████╔╝ ██║  ██║███████╗
-╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝ ╚═════╝    ╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝
-                                                                                                        ''')
+
 
 def add_artist(artistName, artistGenre, performaceDuration):
     artistDict[artistName] = [artistName, artistGenre, performaceDuration]
@@ -165,7 +170,7 @@ def attendee_add():
     attendeeNames.append(attendeeName)
     print("Attendees:",attendeeNames)
     
-    fDayTickets= fVipTickets = fsuper_tickets = fattendee = 0
+    fDayTickets= fVipTickets = fSuperTickets = fattendee = 0
 
     print("""
     Choose A Type
@@ -186,27 +191,27 @@ def attendee_add():
         fattendee +=1
         attendeeTickets.update({attendeeName: "VIP Tickets"})
     elif ticket_type == "3":
-        fsuper_tickets +=1
-        fattendee +=1
+        fSuperTickets +=1
+        fAttendee +=1
         attendeeTickets.update({attendeeName: "Super VIP Tickets"})
     else:
         print("Wrong Type")
 
 
-    return fDayTickets, fVipTickets, fsuper_tickets, fattendee
+    return fDayTickets, fVipTickets, fSuperTickets, fAttendee
        
 
 #This function removes an attendee from the festival
 def remove_ticket():
     
-    fDayTickets= fVipTickets = fsuper_tickets = fattendee = 0
+    fDayTickets= fVipTickets = fSuperTickets = fAttendee = 0
 
     
     print("Attendees:",attendeeNames)
     attendeeRemove = input("Whose ticket do you want to remove: ").lower()
 
     if attendeeRemove in attendeeNames:
-        fattendee -=1
+        fAttendee -=1
         attendeeNames.remove(attendeeRemove)
 
         if attendeeTickets[attendeeRemove] == "3 Day Ticket":
@@ -214,14 +219,14 @@ def remove_ticket():
         elif attendeeTickets[attendeeRemove] == "VIP Ticket":
             fVipTickets -=1
         elif attendeeTickets[attendeeRemove] == "Super VIP Tickets":
-            fsuper_tickets -=1
+            fSuperTickets -=1
 
         del attendeeTickets[attendeeRemove]
         
     else:
         print("Not an Attendee")
 
-    return fDayTickets, fVipTickets, fsuper_tickets, fattendee
+    return fDayTickets, fVipTickets, fSuperTickets, fAttendee
 
 
 #This function searches for an attendees ticket
@@ -249,6 +254,18 @@ def main_ticket_management():
         except:
             pass
 
+#Loclin schedule management
+
+
+def schedule_edit():
+    
+
+
+def schedule_management():
+    scheduleChoice = input("Would you like to (edit) time slots, assign (artists), or (leave)?")
+    if scheduleChoice == "edit":
+        schedule_edit(input("Would you like to have an all "))
+
 def main():
     whatToDo = input("Would you like to manage tickets, artists, venue or leave? ").lower()
 
@@ -265,3 +282,5 @@ def main():
 
 while True:
     main()
+
+
