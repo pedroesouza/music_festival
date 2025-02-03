@@ -10,8 +10,10 @@ attendeeTickets = {}
 artistDict = {}
 artistList = []
 
+scheduleSelected = "oneDayFestival"
+
 oneDayFestival = (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24)
-threeDayFestival = ((16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24))
+threeDayFestival = ("day 1", (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), "day 2",(16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), "day 3", (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24))
 artistSchedules = []
 
 print(r'''███╗   ███╗██╗   ██╗███████╗██╗ ██████╗    ███████╗███████╗███████╗████████╗██╗██╗   ██╗ █████╗ ██╗     
@@ -155,6 +157,7 @@ def ticket_management():
     1.Add an Attendee
     2.Remove an Attendee
     3.Search For an Attendee's Ticket
+    4.Leave
     """)
 
     ticketManageChoice = input("Choose a Number: ")
@@ -167,6 +170,8 @@ def ticket_management():
         print(attendeeNames)
     elif ticketManageChoice == "3":
         attendee_search()
+    elif ticketManageChoice == "4":
+        return ["leave"]
     else:
         print("Not a Choice")
 
@@ -251,7 +256,14 @@ def attendee_search():
 
 #This part adds the tickets and amount of attendees while running the ticket management function
 def main_ticket_management():
-    while True:
+    tickets_add = [False]
+    print(r"""   __                                               ______              _ _ _                                            
+  /  )_/__/_            /                      /      /     /     _/_  ' ) ) )                                        _/_
+ /--/ /  /  _  ____  __/ _  _    __.  ____  __/    --/o _. /_  _  /     / / / __.  ____  __.  _,  _  ______  _  ____  /  
+/  (_<__<__</_/ / <_(_/_</_</_  (_/|_/ / <_(_/_   (_/<_(__/ <_</_<__   / ' (_(_/|_/ / <_(_/|_(_)_</_/ / / <_</_/ / <_<__ 
+                                                                                              /|                         
+                                                                                             |/                          """)
+    while tickets_add[0] != "leave":
         tickets_add = ticket_management()
         try:
             
@@ -297,16 +309,25 @@ def schedule_artists(choice):
     if choice == "remove":
         remove_schedule_artists()
     if choice == "add":
-        add_schedule_artists()
+        if scheduleSelected == "oneDayFestival":
+            add_schedule_artists(input("What is the artist name?"), input(f"Your possible times are {oneDayFestival}, please select a date using only the number as an answer (unless you would like to open an exeption for things like duo performances, then break the rule. )"), input("Which stage would you like to be in? "))
+        if scheduleSelected == "oneDayFestival":
+            add_schedule_artists(input("What is the artist name?"), input(f"Your possible times are {threeDayFestival}, please select a date using only the format (dayTime) as an answer (unless you would like to open an exeption for things like duo performances, then break the rule. )"), input("Which stage would you like to be in? "))
 
 def schedule_management():
+    print(r""" ______     ______     __  __     ______     _____     __  __     __         ______        __    __     ______     __   __     ______     ______     ______     __    __     ______     __   __     ______  
+/\  ___\   /\  ___\   /\ \_\ \   /\  ___\   /\  __-.  /\ \/\ \   /\ \       /\  ___\      /\ "-./  \   /\  __ \   /\ "-.\ \   /\  __ \   /\  ___\   /\  ___\   /\ "-./  \   /\  ___\   /\ "-.\ \   /\__  _\ 
+\ \___  \  \ \ \____  \ \  __ \  \ \  __\   \ \ \/\ \ \ \ \_\ \  \ \ \____  \ \  __\      \ \ \-./\ \  \ \  __ \  \ \ \-.  \  \ \  __ \  \ \ \__ \  \ \  __\   \ \ \-./\ \  \ \  __\   \ \ \-.  \  \/_/\ \/ 
+ \/\_____\  \ \_____\  \ \_\ \_\  \ \_____\  \ \____-  \ \_____\  \ \_____\  \ \_____\     \ \_\ \ \_\  \ \_\ \_\  \ \_\\"\_\  \ \_\ \_\  \ \_____\  \ \_____\  \ \_\ \ \_\  \ \_____\  \ \_\\"\_\    \ \_\ 
+  \/_____/   \/_____/   \/_/\/_/   \/_____/   \/____/   \/_____/   \/_____/   \/_____/      \/_/  \/_/   \/_/\/_/   \/_/ \/_/   \/_/\/_/   \/_____/   \/_____/   \/_/  \/_/   \/_____/   \/_/ \/_/     \/_/ 
+                                                                                                                                                                                                            """)
     print("Artist list:")
     for i in artistList: 
         print("Name:", i[0], "When:", i[1], "Where", i[2], end=" ")
     
-    scheduleChoice = input("Would you like to (edit) what your time slots are?, assign (artists), or (leave)?").lower()
+    scheduleChoice = input("Would you like to (edit) what your time slots are?, assign (artists), or (leave)? ").lower()
     if scheduleChoice == "edit":
-        schedule_edit(input("Would you like to have a 1 day long or 3 day long schedule"))
+        scheduleSelected = schedule_edit(input("Would you like to have a 1 day long or 3 day long schedule"))
     if scheduleChoice == "artists":
         schedule_artists(input("Yould you like to edit, or add artists? ").lower())
     if scheduleChoice == "leave":
