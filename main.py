@@ -4,9 +4,11 @@ vipTickets = 0
 superVipTickets = 0
 attendeeNames = []
 attendees = 0
+venueName = ""
 
 attendeeTickets = {}
 artistDict = {}
+artistList = []
 
 oneDayFestival = (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24)
 threeDayFestival = ((16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24), (16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24))
@@ -40,6 +42,8 @@ def remove_stage():
     stages.remove( ("Stage name: ", name, "location: ", location, "equipment list: ", equipment) )
     pass
 
+def venue_name(venueNameInput):
+    venueName = venueNameInput
 
 #This is my main function
 def venue_managementMAIN(stages):
@@ -54,15 +58,20 @@ o     o                              o     o                                    
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ooP'.:::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::...:::::::::::::::::::::::::::::::::::''')
     while True:
-        location = input("\nWould you like to add, remove, or view stages: ").lower()
+        location = input("\nWould you like to add, remove, view stages and venue, or set a (venue) name (to edit, remove and add again): ").lower()
         if location == "add":
             add_stage()
         elif location == "remove":
             remove_stage()
         elif location == "view":
-            print(stages)
+            if venueName != "":
+                print(stages, venueName)
+            else:
+                print(stages, "your venue name has not been set yet")
+        elif location == "venue":
+            venue_name(input("What is the name of your venue? "))
         else:
-            print("\nSorry that is not a viable option, please check you spelling and try again")
+            print("\nSorry that is not a viable option, please only answer with add, remove, view or venue and try again")
 
 
 
@@ -170,7 +179,7 @@ def attendee_add():
     attendeeNames.append(attendeeName)
     print("Attendees:",attendeeNames)
     
-    fDayTickets= fVipTickets = fSuperTickets = fattendee = 0
+    fDayTickets= fVipTickets = fSuperTickets = fAttendee = 0
 
     print("""
     Choose A Type
@@ -184,11 +193,11 @@ def attendee_add():
     
     if ticket_type == "1":
         fDayTickets+= 1
-        fattendee +=1
+        fAttendee +=1
         attendeeTickets.update({attendeeName: "3 Day Ticket"})
     elif ticket_type == "2":
         fVipTickets += 1
-        fattendee +=1
+        fAttendee +=1
         attendeeTickets.update({attendeeName: "VIP Tickets"})
     elif ticket_type == "3":
         fSuperTickets +=1
@@ -257,14 +266,52 @@ def main_ticket_management():
 #Loclin schedule management
 
 
-def schedule_edit():
-    
+def schedule_edit(whichSchedule):
+    if whichSchedule == 1:
+        return "oneDayFestival"
+    if whichSchedule == 3:
+        return "threeDayFestival"
 
+def add_schedule_artists(artist, when, where):
+    scheduleBool = False
+    if artist not in artistDict:
+        print("Your artist is not registered for the festival")
+
+    for i in artistList:
+        if when == i[1] and where == i[2]:
+            scheduleBool = True
+            break
+
+    if scheduleBool == False:
+        artistList.append([artist, when, where])
+    else:
+        print("That time and stage are taken in the moment")
+
+def remove_schedule_artists(artist):
+    for i in artistList:
+        if i[0] == artist:
+            i.pop([i[0], i[2], i[3]])
+    print("Congrats, your artist is now gone from the list!")
+
+def edit_schedule_artists(artist, thing, change):
+    pass
+
+def schedule_artists(choice):
+    if choice == "remove":
+        remove_schedule_artists()
+    if choice == "add":
+        add_schedule_artists()
+    if choice == "edit":
+        edit_schedule_artists(input("What artist do you want to edit?"), input())
 
 def schedule_management():
-    scheduleChoice = input("Would you like to (edit) time slots, assign (artists), or (leave)?")
+    scheduleChoice = input("Would you like to (edit) what your time slots are?, assign (artists), or (leave)?").lower()
     if scheduleChoice == "edit":
-        schedule_edit(input("Would you like to have an all "))
+        schedule_edit(input("Would you like to have a 1 day long or 3 day long schedule"))
+    if scheduleChoice == "artists":
+        schedule_artists(input("Yould you like to edit, add, or edit artists? ").lower())
+    if scheduleChoice == "leave":
+        main()
 
 def main():
     whatToDo = input("Would you like to manage tickets, artists, venue or leave? ").lower()
@@ -274,7 +321,9 @@ def main():
     elif whatToDo == "artists":
         artist_management()
     elif whatToDo == "venue":
-        venue_managementMAIN()
+        venue_managementMAIN(stages)
+    elif whatToDo == "schedule":
+        schedule_management()
     elif whatToDo == "leave":
         exit()
     else:
