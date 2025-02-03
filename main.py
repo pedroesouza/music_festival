@@ -107,7 +107,8 @@ def edit_artist(artistName, whatToEdit, change):
     #Idiot proofing for artists not being in the list
     else:
         print("ERROR, artist in not in the list of artist!, please reselect your choices and try again!")
-
+      
+#Just prints out artist info if the artist is in the list
 def search_artist(artistName):
     if artistName in artistDict:
         print(f"Your artist is in the dictionary, their information is name:{artistDict[artistName][0]}, genre:{artistDict[artistName][1]}, duration:{artistDict[artistName][2]}")
@@ -126,7 +127,7 @@ _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""
     
         print(f"\nYour artist list is: {artistDict}")
 
-
+        #Function calls of loop ends based off input
         artistListInteraction = input("\nWould you like to add, edit, remove artist and info, search, or leave artist management? ").lower()
         if artistListInteraction == "add":
             add_artist(input("What is the artists name? "), input("What is the artists genre? "), input("What is the duration of the performance? "))
@@ -138,6 +139,7 @@ _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""
             search_artist(input("What is your artist's name? "))
         elif artistListInteraction == "leave":
             break
+        #Idiot proofing for invalid choices
         else: 
             print("ERROR, your answer was not in the options, please only answer with add, remove, edit, search, or leave")
 
