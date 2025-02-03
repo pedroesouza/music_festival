@@ -78,29 +78,33 @@ o     o                              o     o                                    
 
 #Pedro artist management
 
+#Add artist function, puts a list of the three artists things in the dictionary
 def add_artist(artistName, artistGenre, performaceDuration):
     artistDict[artistName] = [artistName, artistGenre, performaceDuration]
 
+#Removes artist selected, does nothing if artist wasnt there
 def remove_artist(artistName):
     if artistName in artistDict:
         del artistDict[artistName]
     
     print("Your artist was removed from the artist list, if there was no artist of that name, we have not changed the list at all")
 
+#Etiting artist info based off choice
 def edit_artist(artistName, whatToEdit, change):
     if artistName in artistDict:
         if whatToEdit == "name":
             artistDict[artistName][0] = change
-            artistDict[change] = artistDict.pop(artistName)
+            artistDict[change] = artistDict.pop(artistName) #If name, you change the name, and then replace the key with .pop()
         
         elif whatToEdit == "genre":
             artistDict[artistName][1] = change
 
         elif whatToEdit == "duration":
             artistDict[artistName][2] = change
-
+        #Idiot proofing for wring choice
         else:
-            print("ERROR, your choice of what to edit is invalid!, please reselect your choices and try again!, remember, in this question, your only aoptions are name, genre, and duration.")
+            print("ERROR, your choice of what to edit is invalid!, please reselect your choices and try again!, remember, in this question, your only options are name, genre, and duration.")
+    #Idiot proofing for artists not being in the list
     else:
         print("ERROR, artist in not in the list of artist!, please reselect your choices and try again!")
 
